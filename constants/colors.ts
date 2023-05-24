@@ -1,0 +1,21 @@
+export const colorPalette = {
+  primary100: "#d9ffef",
+  primary200: "#b5fddf",
+  primary300: "#7cf9c7",
+  primary400: "#20e999",
+  primary500: "#13d488",
+  primary600: "#09b06f",
+  primary700: "#0b8a58",
+  primary800: "#0f6c48",
+  primary900: "#0e593e",
+  orange100: "#ffedd5",
+  orange200: "#fdd8ab",
+  orange300: "#fcbb75",
+  orange400: "#fa933d",
+  orange500: "#f87d25",
+  orange600: "#e95a0d",
+  orange700: "#c1420d",
+  orange800: "#993513",
+  orange900: "#7b2e13",
+}
+
