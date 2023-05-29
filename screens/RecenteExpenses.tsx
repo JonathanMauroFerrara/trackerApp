@@ -1,12 +1,9 @@
-import { View, Text } from "react-native";
 import React from "react";
+import ExpensesOutput from "../components/ExpensesOut/ExpensesOutput";
+import { DUMMY_EXPENSES } from "../constants/dummyData";
 
 const RecenteExpenses = () => {
-  return (
-    <View>
-      <Text>RecenteExpenses Screen</Text>
-    </View>
-  );
+  return <ExpensesOutput expenses={DUMMY_EXPENSES} expensesPeriod="Now" />;
 };
 
 export default RecenteExpenses;
