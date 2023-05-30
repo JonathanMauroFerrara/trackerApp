@@ -1,8 +1,6 @@
 import React from "react";
 import { StyleSheet, View } from "react-native";
-import { colorPalette } from "../../constants/colors";
 import { TExpensesList } from "../../types";
-import ExpensesList from "./ExpensesList";
 import ExpensesSummary from "./ExpensesSummary";
 
 const ExpensesOutput = ({
@@ -14,8 +12,12 @@ const ExpensesOutput = ({
 }) => {
   return (
     <View style={styles.container}>
-      <ExpensesSummary periodTitle={expensesPeriod} expenses={expenses} />
-      <ExpensesList expenses={expenses} />
+      <View>
+        <ExpensesSummary periodTitle={expensesPeriod} expenses={expenses} />
+      </View>
+      {/* <View>
+        <ExpensesList expenses={expenses} />
+      </View> */}
     </View>
   );
 };
@@ -23,7 +25,5 @@ const ExpensesOutput = ({
 export default ExpensesOutput;
 
 const styles = StyleSheet.create({
-  container: {
-    backgroundColor: colorPalette.primary200,
-  },
+  container: {},
 });

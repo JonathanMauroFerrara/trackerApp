@@ -15,8 +15,14 @@ const ExpensesSummary = ({
 
   return (
     <View style={styles.container}>
-      <Text>{periodTitle}</Text>
-      <Text>{`$ ${expensesSum.toFixed(2)}`}</Text>
+      <View style={styles.textContainer}>
+        <Text style={styles.title}>Period</Text>
+        <Text style={styles.value}>{periodTitle}</Text>
+      </View>
+      <View style={styles.textContainer}>
+        <Text style={styles.title}>Total</Text>
+        <Text style={styles.value}>{`$ ${expensesSum.toFixed(2)}`}</Text>
+      </View>
     </View>
   );
 };
@@ -25,9 +31,24 @@ export default ExpensesSummary;
 
 const styles = StyleSheet.create({
   container: {
-    display: "flex",
+    justifyContent: "space-between",
+  },
+  textContainer: {
+    justifyContent: "space-between",
     flexDirection: "row",
-    justifyContent: "space-around",
     alignItems: "center",
+    borderBottomColor: "white",
+    borderBottomWidth: 1,
+    paddingBottom: 3,
+    marginTop: 10,
+  },
+  title: {
+    fontSize: 20,
+    color: "white",
+  },
+  value: {
+    color: "white",
+    fontSize: 20,
+    marginTop: 10,
   },
 });

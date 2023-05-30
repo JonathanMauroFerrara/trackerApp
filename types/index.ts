@@ -1,3 +1,4 @@
+
 type TSingleExpenses = {
     id: string,
     name: string,
@@ -9,5 +10,11 @@ type TSingleExpenses = {
 type TExpensesList = TSingleExpenses[];
 
 
-export { TSingleExpenses, TExpensesList };
+type TGradientContainerProps = {
+  firstColorGradient?: string;
+  secondColorGradient?: string;
+}
+
+
+export { TSingleExpenses, TExpensesList, TGradientContainerProps };
 

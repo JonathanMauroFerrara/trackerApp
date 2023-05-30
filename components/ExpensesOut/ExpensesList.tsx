@@ -20,7 +20,7 @@ const ExpensesList = ({ expenses }: { expenses: TExpensesList }) => {
 
   return (
     <FlatList
-      id={expenses[0].id}
+      keyExtractor={(item) => item.id}
       data={expenses}
       renderItem={({ item }) => singleExpenses(item)}
     />
