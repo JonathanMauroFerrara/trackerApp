@@ -1,8 +1,7 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet } from "react-native";
-import ExpensesOverview from "./navigation/ExpensesOverview/ExpensesOverview";
+import TabNavigator from "./navigators/TabNavigator";
 import ManageExpenses from "./screens/ManageExpenses";
 
 const Stack = createNativeStackNavigator();
@@ -15,10 +14,9 @@ export default function App() {
         <Stack.Navigator>
           <Stack.Screen
             name="ExpensesOverview"
-            component={ExpensesOverview}
+            component={TabNavigator}
             options={{
               headerShown: false,
-              contentStyle: styles.globalContainer,
             }}
           />
           <Stack.Screen name="ManageExpenses" component={ManageExpenses} />
@@ -27,9 +25,3 @@ export default function App() {
     </>
   );
 }
-
-const styles = StyleSheet.create({
-  globalContainer: {
-    flex: 1,
-  },
-});
