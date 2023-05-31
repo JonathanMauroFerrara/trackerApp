@@ -1,4 +1,3 @@
-
 type TSingleExpenses = {
     id: string,
     name: string,
@@ -8,7 +7,6 @@ type TSingleExpenses = {
 }
 
 type TExpensesList = TSingleExpenses[];
-
 
 type TGradientContainerProps = {
   firstColorGradient?: string;
