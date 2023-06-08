@@ -1,9 +1,10 @@
 type TSingleExpenses = {
     id: string,
     name: string,
-    description: string,
     amount: number,
     iconType: string,
+    category: CategoryEnum,
+    date: Date,
 }
 
 type TExpensesList = TSingleExpenses[];
@@ -13,6 +14,17 @@ type TGradientContainerProps = {
   secondColorGradient?: string;
 }
 
+enum CategoryEnum {
+  Entertainment = "Entertainment",
+  Food = "Food",
+  Groceries = "Groceries",
+  Health = "Health",
+  Home = "Home",
+  Other = "Other",
+  Transportation = "Transportation",
+}
 
-export { TSingleExpenses, TExpensesList, TGradientContainerProps };
+
+
+export { TSingleExpenses, TExpensesList, TGradientContainerProps, CategoryEnum };
 

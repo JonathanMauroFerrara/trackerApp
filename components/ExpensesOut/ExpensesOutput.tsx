@@ -12,12 +12,7 @@ const ExpensesOutput = ({
 }) => {
   return (
     <View style={styles.container}>
-      <View>
-        <ExpensesSummary periodTitle={expensesPeriod} expenses={expenses} />
-      </View>
-      {/* <View>
-        <ExpensesList expenses={expenses} />
-      </View> */}
+      <ExpensesSummary periodTitle={expensesPeriod} expenses={expenses} />
     </View>
   );
 };

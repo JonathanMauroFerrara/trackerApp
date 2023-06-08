@@ -1,6 +1,7 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { TExpensesList } from "../../types";
+import ExpensesList from "./ExpensesList";
 
 const ExpensesSummary = ({
   periodTitle,
@@ -16,13 +17,10 @@ const ExpensesSummary = ({
   return (
     <View style={styles.container}>
       <View style={styles.textContainer}>
-        <Text style={styles.title}>Period</Text>
-        <Text style={styles.value}>{periodTitle}</Text>
-      </View>
-      <View style={styles.textContainer}>
-        <Text style={styles.title}>Total</Text>
+        <Text style={styles.title}>{periodTitle}</Text>
         <Text style={styles.value}>{`$ ${expensesSum.toFixed(2)}`}</Text>
-      </View>
+      </View> 
+      <ExpensesList expenses={expenses} />
     </View>
   );
 };

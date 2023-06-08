@@ -1,40 +1,23 @@
 import React from "react";
-import { FlatList, StyleSheet, Text, View } from "react-native";
+import { FlatList, View } from "react-native";
 import { TExpensesList, TSingleExpenses } from "../../types";
+import ExpenseItem from "./ExpenseItem";
 
 const ExpensesList = ({ expenses }: { expenses: TExpensesList }) => {
-  const singleExpenses = ({
-    name,
-    amount,
-    description,
-    id,
-    iconType,
-  }: TSingleExpenses) => (
-    <View style={styles.container}>
-      {/* <Text>{id}</Text> */}
-      <Text>{name}</Text>
-      <Text>{amount}</Text>
-      {/* <Text>{description}</Text> */}
-    </View>
+  const renderSingleExpenses = (props: TSingleExpenses) => (
+    <ExpenseItem {...props} />
   );
 
   return (
-    <FlatList
-      keyExtractor={(item) => item.id}
-      data={expenses}
-      renderItem={({ item }) => singleExpenses(item)}
-    />
+    <View>
+      <FlatList
+        keyExtractor={(item) => item.id}
+        data={expenses}
+        renderItem={({ item }) => renderSingleExpenses(item)}
+        style={{ marginTop: 20 }}
+      />
+    </View>
   );
 };
 
 export default ExpensesList;
-
-const styles = StyleSheet.create({
-  container: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-around",
-    alignItems: "center",
-    margin: 10,
-  },
-});
