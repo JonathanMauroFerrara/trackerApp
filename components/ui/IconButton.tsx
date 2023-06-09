@@ -24,9 +24,14 @@ const IconButton = ({
   className,
 }: TIconButton) => {
   return (
-    <Pressable onPress={onPress} style={styles.container}>
+    <Pressable onPress={onPress}>
       <View style={className}>
-        <Ionicons name={iconName} size={size} color={color} />
+        <Ionicons
+          name={iconName}
+          size={size}
+          color={color}
+          style={{ right: -1.5, top: -1.5, width: size, height: size }}
+        />
       </View>
     </Pressable>
   );

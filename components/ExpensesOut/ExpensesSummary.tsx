@@ -19,7 +19,7 @@ const ExpensesSummary = ({
       <View style={styles.textContainer}>
         <Text style={styles.title}>{periodTitle}</Text>
         <Text style={styles.value}>{`$ ${expensesSum.toFixed(2)}`}</Text>
-      </View> 
+      </View>
       <ExpensesList expenses={expenses} />
     </View>
   );

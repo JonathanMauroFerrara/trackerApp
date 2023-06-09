@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Modal, Pressable, StyleSheet, Text } from "react-native";
+import { Button, Modal, Pressable, StyleSheet, View } from "react-native";
 import GestureRecognizer from "react-native-swipe-gestures";
 import Container from "../components/Container/Container";
 import GradientContainer from "../components/GradientContainer/GradientContainer";
@@ -15,9 +15,10 @@ const AddExpenses = () => {
         <Pressable>
           <IconButton
             iconName="add"
-            size={35}
+            size={50}
             onPress={() => setIsModalVisible(true)}
-            color={colorPalette.primary700}
+            color={colorPalette.white}
+            className={styles.closeButtonContainer}
           />
         </Pressable>
 
@@ -27,7 +28,20 @@ const AddExpenses = () => {
             secondColorGradient={colorPalette.primary500}
           >
             <Container>
-              <Text>I am the modal content!</Text>
+              <View style={{ alignSelf: "flex-end" }}>
+                <IconButton
+                  iconName="close-circle-outline"
+                  color={colorPalette.white}
+                  size={50}
+                  onPress={() => setIsModalVisible(false)}
+                />
+              </View>
+
+              <View style={styles.modalContainer}>
+                <View style={styles.addButton}>
+                  <Button title="Add expense" color={colorPalette.primary700} />
+                </View>
+              </View>
             </Container>
           </GradientContainer>
         </Modal>
@@ -38,4 +52,21 @@ const AddExpenses = () => {
 
 export default AddExpenses;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  closeButtonContainer: {
+    backgroundColor: colorPalette.primary500,
+    borderRadius: 50,
+    top: -20,
+    borderWidth: 1,
+    borderColor: colorPalette.white,
+  },
+  modalContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  addButton: {
+    backgroundColor: colorPalette.white,
+    borderRadius: 10,
+  },
+});
