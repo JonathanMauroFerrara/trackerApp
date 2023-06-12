@@ -26,6 +26,6 @@ export default GradientContainer;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 80,
+    paddingTop: 40,
   },
 });

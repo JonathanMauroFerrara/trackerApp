@@ -1,19 +1,51 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useContext } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import Container from "../components/ui/Container/Container";
 import GradientContainer from "../components/ui/GradientContainer/GradientContainer";
 import IconButton from "../components/ui/IconButton";
 import { colorPalette } from "../constants/colors";
+import { ExpensesContext } from "../context/expense-context";
+import { CategoryEnum } from "../types";
 
-const ManageExpenses = ({ route }: any) => {
+const ManageExpenses = ({ route, navigation }: any) => {
   const { id, name, date, amount, iconType, category } = route.params;
+  const { deleteExpense, updateExpense, addExpense } =
+    useContext(ExpensesContext);
 
-  const handleDelete = useCallback(() => {}, []);
-  const handleEdit = useCallback(() => {}, []);
+  const goBackHistory = useCallback(() => {
+    return navigation.goBack();
+  }, [navigation]);
+
+  const handleDelete = useCallback((id: string) => {
+    deleteExpense(id);
+    goBackHistory();
+  }, []);
+
+  const handleEdit = useCallback((data: any) => {
+    updateExpense({
+      name: "test",
+      date: new Date(),
+      amount: 200,
+      id: id,
+      category: CategoryEnum.Entertainment,
+      iconType: "home",
+    });
+    goBackHistory();
+  }, []);
 
   return (
-    <GradientContainer>
+    <GradientContainer
+      firstColorGradient={colorPalette.primary300}
+      secondColorGradient={colorPalette.primary500}
+    >
       <Container>
+        <IconButton
+          iconName="close-circle-outline"
+          color={colorPalette.white}
+          onPress={() => goBackHistory()}
+          className={{ alignSelf: "flex-end" }}
+          size={45}
+        />
         <View>
           <Text>Name: {name}</Text>
           <Text>Date: {}</Text>
@@ -24,14 +56,14 @@ const ManageExpenses = ({ route }: any) => {
         <View>
           <IconButton
             size={25}
-            onPress={() => handleEdit()}
+            onPress={() => handleEdit(route.params)}
             btnText="Edit"
             textColor={colorPalette.primary700}
             className={[styles.buttonContainer, styles.editBtn]}
           />
           <IconButton
             size={25}
-            onPress={() => handleDelete()}
+            onPress={() => handleDelete(id)}
             btnText="Delete"
             textColor={colorPalette.white}
             className={[styles.buttonContainer, styles.deleteBtn]}
