@@ -11,15 +11,13 @@ export default function App() {
     <>
       <StatusBar style="light" />
       <NavigationContainer>
-        <Stack.Navigator>
+        <Stack.Navigator screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="ExpensesOverview" component={TabNavigator} />
           <Stack.Screen
-            name="ExpensesOverview"
-            component={TabNavigator}
-            options={{
-              headerShown: false,
-            }}
+            name="ManageExpenses"
+            component={ManageExpenses}
+            options={{ presentation: "modal" }}
           />
-          <Stack.Screen name="ManageExpenses" component={ManageExpenses} />
         </Stack.Navigator>
       </NavigationContainer>
     </>

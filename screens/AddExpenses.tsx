@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Button, Modal, Pressable, StyleSheet, View } from "react-native";
 import GestureRecognizer from "react-native-swipe-gestures";
-import Container from "../components/Container/Container";
-import GradientContainer from "../components/GradientContainer/GradientContainer";
+import Container from "../components/ui/Container/Container";
+import GradientContainer from "../components/ui/GradientContainer/GradientContainer";
 import IconButton from "../components/ui/IconButton";
 import { colorPalette } from "../constants/colors";
 

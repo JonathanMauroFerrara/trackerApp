@@ -5,10 +5,15 @@ import { colorPalette } from "../../constants/colors";
 import { TSingleExpenses } from "../../types";
 import { formatDate } from "../../utils/dateFormatter";
 
-const ExpenseItem = ({ name, amount, date }: TSingleExpenses) => {
+const ExpenseItem = (props: TSingleExpenses) => {
   const navigation = useNavigation();
+  const { name, amount, date } = props;
   return (
-    <Pressable onPress={() => navigation.navigate()}>
+    <Pressable
+      onPress={() =>
+        navigation.navigate("ManageExpenses" as never, { ...props })
+      }
+    >
       <View style={styles.container}>
         <View>
           <Text style={styles.text}>{name}</Text>

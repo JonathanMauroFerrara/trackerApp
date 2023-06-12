@@ -1,8 +1,8 @@
 import { LinearGradient } from "expo-linear-gradient";
 import React, { PropsWithChildren } from "react";
 import { StyleSheet } from "react-native";
-import { colorPalette } from "../../constants/colors";
-import { TGradientContainerProps } from "../../types";
+import { colorPalette } from "../../../constants/colors";
+import { TGradientContainerProps } from "../../../types";
 
 const GradientContainer = ({
   children,

@@ -37,7 +37,7 @@ function TabNavigator() {
     >
       <BottomTabs.Screen name="AllExpenses" component={AllExpenses} />
       <BottomTabs.Screen
-        name="add"
+        name="addExpenses"
         component={PayScreenComponent}
         options={{
           tabBarButton: () => <AddExpenses />,

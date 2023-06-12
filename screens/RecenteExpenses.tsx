@@ -1,8 +1,8 @@
 import React from "react";
 import { StyleSheet } from "react-native";
-import Container from "../components/Container/Container";
 import ExpensesOutput from "../components/ExpensesOut/ExpensesOutput";
-import GradientContainer from "../components/GradientContainer/GradientContainer";
+import Container from "../components/ui/Container/Container";
+import GradientContainer from "../components/ui/GradientContainer/GradientContainer";
 import { DUMMY_EXPENSES } from "../constants/dummyData";
 
 const RecenteExpenses = () => {
