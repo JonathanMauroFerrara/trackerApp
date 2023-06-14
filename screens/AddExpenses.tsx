@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { Button, Modal, Pressable, StyleSheet, View } from "react-native";
+import { Modal, Pressable, StyleSheet, View } from "react-native";
 import GestureRecognizer from "react-native-swipe-gestures";
+import ExpensesForm from "../components/ExpenseForm/ExpensesForm";
 import Container from "../components/ui/Container/Container";
 import GradientContainer from "../components/ui/GradientContainer/GradientContainer";
 import IconButton from "../components/ui/IconButton";
@@ -38,9 +39,7 @@ const AddExpenses = () => {
               </View>
 
               <View style={styles.modalContainer}>
-                <View style={styles.addButton}>
-                  <Button title="Add expense" color={colorPalette.primary700} />
-                </View>
+                <ExpensesForm className={styles.formContainer} />
               </View>
             </Container>
           </GradientContainer>
@@ -62,11 +61,14 @@ const styles = StyleSheet.create({
   },
   modalContainer: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
   },
   addButton: {
     backgroundColor: colorPalette.white,
     borderRadius: 10,
+  },
+  formContainer: {
+    alignSelf: "center",
+    marginTop: 60,
+    width: "90%",
   },
 });

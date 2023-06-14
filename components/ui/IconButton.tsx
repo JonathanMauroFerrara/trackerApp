@@ -65,6 +65,7 @@ const styles = StyleSheet.create({
   },
   btnText: {
     fontSize: 20,
+    marginRight: 10,
   },
   pressed: {
     opacity: 0.8,
