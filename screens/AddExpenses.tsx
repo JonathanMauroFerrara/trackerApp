@@ -39,7 +39,10 @@ const AddExpenses = () => {
               </View>
 
               <View style={styles.modalContainer}>
-                <ExpensesForm className={styles.formContainer} />
+                <ExpensesForm
+                  className={styles.formContainer}
+                  handleModal={setIsModalVisible}
+                />
               </View>
             </Container>
           </GradientContainer>
@@ -70,5 +73,6 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     marginTop: 60,
     width: "90%",
+    height: "90%",
   },
 });
