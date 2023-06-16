@@ -18,11 +18,7 @@ const ExpensesForm = ({ className, handleModal }: any) => {
     iconType: "home",
   });
 
-  const handleOnChange = (field: string, value: string) => {
-    console.log(typeof field);
-    if (field === "amount") {
-      return setInputValue({ ...inputValues, [field]: parseInt(value) });
-    }
+  const handleOnChange = (field: string, value: string | number) => {
     setInputValue({ ...inputValues, [field]: value });
   };
 
@@ -46,7 +42,7 @@ const ExpensesForm = ({ className, handleModal }: any) => {
         type="decimal-pad"
         onChange={handleOnChange}
         placeholder="Type the amount"
-        value={inputValues.amount}
+        value={inputValues.amount.toString()}
         inputClassName={styles.input}
         className={styles.inputContainer}
       />
