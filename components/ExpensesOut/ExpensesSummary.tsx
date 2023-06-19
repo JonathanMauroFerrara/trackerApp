@@ -20,7 +20,15 @@ const ExpensesSummary = ({
         <Text style={styles.title}>{periodTitle}</Text>
         <Text style={styles.value}>{`$ ${expensesSum.toFixed(2)}`}</Text>
       </View>
-      <ExpensesList expenses={expenses} />
+      {expenses.length > 0 ? (
+        <ExpensesList expenses={expenses} />
+      ) : (
+        <View style={styles.messageContainer}>
+          <Text style={styles.message}>
+            There aren't expenses in the last 7 days
+          </Text>
+        </View>
+      )}
     </View>
   );
 };
@@ -30,6 +38,7 @@ export default ExpensesSummary;
 const styles = StyleSheet.create({
   container: {
     justifyContent: "space-between",
+    height: "100%",
   },
   textContainer: {
     justifyContent: "space-between",
@@ -48,5 +57,17 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 20,
     marginTop: 10,
+  },
+  messageContainer: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    height: "100%",
+    width: "100%",
+  },
+  message: {
+    fontSize: 20,
+    color: "white",
+    textAlign: "center",
   },
 });

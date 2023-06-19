@@ -1,16 +1,16 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { StyleSheet } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { Pressable, StyleSheet } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import IconButton from "../components/ui/IconButton";
 import { colorPalette } from "../constants/colors";
 import AddExpenses from "../screens/AddExpenses";
 import AllExpenses from "../screens/AllExpenses";
 import RecenteExpenses from "../screens/RecenteExpenses";
 
 const BottomTabs = createBottomTabNavigator();
-const PayScreenComponent = () => {
-  return null;
-};
 function TabNavigator() {
+  const navigation = useNavigation();
   return (
     <BottomTabs.Navigator
       screenOptions={({ route }) => ({
@@ -38,9 +38,19 @@ function TabNavigator() {
       <BottomTabs.Screen name="AllExpenses" component={AllExpenses} />
       <BottomTabs.Screen
         name="addExpenses"
-        component={PayScreenComponent}
+        component={AddExpenses}
         options={{
-          tabBarButton: () => <AddExpenses />,
+          tabBarButton: () => (
+            <Pressable>
+              <IconButton
+                iconName="add"
+                size={50}
+                onPress={() => navigation.navigate("ManageExpenses" as never)}
+                color={colorPalette.white}
+                className={styles.closeButtonContainer}
+              />
+            </Pressable>
+          ),
         }}
       />
       <BottomTabs.Screen name="RecentExpenses" component={RecenteExpenses} />
@@ -61,5 +71,12 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     borderRadius: 50,
     justifyContent: "center",
+  },
+  closeButtonContainer: {
+    backgroundColor: colorPalette.primary500,
+    borderRadius: 50,
+    top: -20,
+    borderWidth: 1,
+    borderColor: colorPalette.white,
   },
 });

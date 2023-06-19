@@ -1,37 +1,32 @@
-import React, { useCallback, useContext } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import React, {
+  useCallback,
+  useContext,
+  useLayoutEffect,
+  useState,
+} from "react";
+import ExpensesForm from "../components/ExpenseForm/ExpensesForm";
 import Container from "../components/ui/Container/Container";
 import GradientContainer from "../components/ui/GradientContainer/GradientContainer";
 import IconButton from "../components/ui/IconButton";
 import { colorPalette } from "../constants/colors";
 import { ExpensesContext } from "../context/expense-context";
-import { CategoryEnum } from "../types";
 
 const ManageExpenses = ({ route, navigation }: any) => {
-  const { id, name, date, amount, iconType, category } = route.params;
+  const [isEdit, setIsEdit] = useState(false);
+  const [data, setData] = useState(route.params ?? "");
+
+  useLayoutEffect(() => {
+    if (data.id) {
+      setIsEdit(true);
+    }
+  }, [data]);
+
   const { deleteExpense, updateExpense, addExpense } =
     useContext(ExpensesContext);
 
   const goBackHistory = useCallback(() => {
     return navigation.goBack();
   }, [navigation]);
-
-  const handleDelete = useCallback((id: string) => {
-    deleteExpense(id);
-    goBackHistory();
-  }, []);
-
-  const handleEdit = useCallback((data: any) => {
-    updateExpense({
-      name: "test",
-      date: new Date(),
-      amount: 200,
-      id: id,
-      category: CategoryEnum.Entertainment,
-      iconType: "home",
-    });
-    goBackHistory();
-  }, []);
 
   return (
     <GradientContainer
@@ -46,45 +41,10 @@ const ManageExpenses = ({ route, navigation }: any) => {
           className={{ alignSelf: "flex-end" }}
           size={45}
         />
-        <View>
-          <Text>Name: {name}</Text>
-          <Text>Date: {}</Text>
-          <Text>Amount: {amount}</Text>
-          <Text>Category: {category}</Text>
-          <Text>Icon: {iconType}</Text>
-        </View>
-        <View>
-          <IconButton
-            size={25}
-            onPress={() => handleEdit(route.params)}
-            btnText="Edit"
-            textColor={colorPalette.primary700}
-            className={[styles.buttonContainer, styles.editBtn]}
-          />
-          <IconButton
-            size={25}
-            onPress={() => handleDelete(id)}
-            btnText="Delete"
-            textColor={colorPalette.white}
-            className={[styles.buttonContainer, styles.deleteBtn]}
-          />
-        </View>
+        <ExpensesForm data={data} isEdit={isEdit} />
       </Container>
     </GradientContainer>
   );
 };
 
 export default ManageExpenses;
-
-const styles = StyleSheet.create({
-  buttonContainer: {
-    borderRadius: 10,
-    marginTop: 5,
-  },
-  editBtn: {
-    backgroundColor: colorPalette.white,
-  },
-  deleteBtn: {
-    backgroundColor: colorPalette.red,
-  },
-});

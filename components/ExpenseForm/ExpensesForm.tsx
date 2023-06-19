@@ -1,3 +1,4 @@
+import { useNavigation } from "@react-navigation/native";
 import React, { useCallback, useContext, useState } from "react";
 import { StyleSheet, View } from "react-native";
 import { colorPalette } from "../../constants/colors";
@@ -6,73 +7,116 @@ import { CategoryEnum, TSingleExpenses } from "../../types";
 import IconButton from "../ui/IconButton";
 import Input from "./Input";
 import Select from "./Select";
+import { storeExpense } from "../../utils/https";
 
-const ExpensesForm = ({ className, handleModal }: any) => {
-  const { addExpense } = useContext(ExpensesContext);
-  const [inputValues, setInputValue] = useState<TSingleExpenses>({
-    id: "",
-    name: "",
-    amount: 0,
-    date: new Date(),
-    category: CategoryEnum.Other,
-    iconType: "home",
-  });
+const ExpensesForm = ({ className, isEdit, data }: any) => {
+  const navigation = useNavigation();
+  const { addExpense, deleteExpense, updateExpense } =
+    useContext(ExpensesContext);
+  const [inputValues, setInputValue] = useState<TSingleExpenses>(
+    data || {
+      id: "",
+      name: "",
+      amount: 0,
+      date: new Date(),
+      category: CategoryEnum.Other,
+      iconType: "home",
+    }
+  );
+
+  console.log("values", inputValues);
 
   const handleOnChange = (field: string, value: string | number) => {
     setInputValue({ ...inputValues, [field]: value });
   };
 
-  const onSubmit = useCallback(() => {
-    addExpense(inputValues);
-    handleModal(false);
+  const handleDelete = useCallback(
+    (id: string) => {
+      deleteExpense(inputValues.id);
+      goBackHistory();
+    },
+    [inputValues]
+  );
+
+  const handleEdit = useCallback(() => {
+    updateExpense({ ...inputValues });
+    goBackHistory();
   }, [inputValues]);
 
-  return (
-    <View style={className}>
-      <Input
-        label="name"
-        onChange={handleOnChange}
-        placeholder="Type name of expenses"
-        value={inputValues.name}
-        inputClassName={styles.input}
-        className={styles.inputContainer}
-      />
-      <Input
-        label="amount"
-        type="decimal-pad"
-        onChange={handleOnChange}
-        placeholder="Type the amount"
-        value={inputValues.amount.toString()}
-        inputClassName={styles.input}
-        className={styles.inputContainer}
-      />
-      <Select
-        items={[
-          "Entertainment",
-          "Food",
-          "Groceries",
-          "Health",
-          "Home",
-          "Other",
-          "Transportation",
-        ]}
-        onChange={handleOnChange}
-        label="Category"
-        value={inputValues.category}
-        placeholder="Select a category"
-        btnStyle={styles.selectBtn}
-        dropDownStyle={styles.dropDown}
-        textColor={colorPalette.white}
-      />
+  const goBackHistory = useCallback(() => {
+    return navigation.goBack();
+  }, [navigation]);
 
-      <IconButton
-        btnText="Add Expense"
-        onPress={onSubmit}
-        color="white"
-        textColor={colorPalette.primary500}
-        size={20}
-        className={styles.button}
-      />
+  const onSubmit = async () => {
+    try {
+      const newId = await storeExpense({ ...inputValues });
+      addExpense({ ...inputValues, date: new Date(), id: newId });
+      goBackHistory();
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  return (
+    <View style={styles.wrapper}>
+      <View style={className}>
+        <Input
+          label="name"
+          onChange={handleOnChange}
+          placeholder="Type name of expenses"
+          value={inputValues.name}
+          inputClassName={styles.input}
+          className={styles.inputContainer}
+        />
+        <Input
+          label="amount"
+          type="decimal-pad"
+          onChange={handleOnChange}
+          placeholder="Type the amount"
+          value={inputValues.amount ? inputValues.amount.toString() : ""}
+          inputClassName={styles.input}
+          className={styles.inputContainer}
+        />
+        <Select
+          items={[
+            "Entertainment",
+            "Food",
+            "Groceries",
+            "Health",
+            "Home",
+            "Other",
+            "Transportation",
+          ]}
+          onChange={handleOnChange}
+          label="Category"
+          value={inputValues.category}
+          placeholder="Select a category"
+          btnStyle={styles.selectBtn}
+          dropDownStyle={styles.dropDown}
+          textColor={colorPalette.white}
+        />
+      </View>
+
+      <View style={styles.buttonSection}>
+        <IconButton
+          size={25}
+          onPress={() => {
+            isEdit ? handleEdit() : onSubmit();
+          }}
+          btnText={isEdit ? "Edit" : "Add"}
+          textColor={colorPalette.primary700}
+          className={[styles.buttonContainer, styles.editBtn]}
+        />
+        <IconButton
+          size={25}
+          onPress={() => {
+            isEdit ? handleDelete(inputValues?.id) : goBackHistory();
+          }}
+          btnText={isEdit ? "Delete" : "Cancel"}
+          textColor={colorPalette.white}
+          className={[styles.buttonContainer, styles.deleteBtn]}
+        />
+      </View>
     </View>
   );
 };
@@ -80,6 +124,10 @@ const ExpensesForm = ({ className, handleModal }: any) => {
 export default ExpensesForm;
 
 const styles = StyleSheet.create({
+  wrapper: {
+    position: "relative",
+    flex: 1,
+  },
   inputContainer: {
     marginTop: 20,
   },
@@ -112,5 +160,21 @@ const styles = StyleSheet.create({
     marginTop: 25,
     borderRadius: 8,
     color: colorPalette.white,
+  },
+  buttonSection: {
+    position: "absolute",
+    bottom: 100,
+    width: "100%",
+  },
+  buttonContainer: {
+    borderRadius: 10,
+    marginTop: 5,
+  },
+  editBtn: {
+    backgroundColor: colorPalette.white,
+    marginBottom: 15,
+  },
+  deleteBtn: {
+    backgroundColor: colorPalette.red,
   },
 });
