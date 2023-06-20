@@ -8,9 +8,10 @@ import IconButton from "../ui/IconButton";
 import Input from "./Input";
 import Select from "./Select";
 import { storeExpense } from "../../utils/https";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack/lib/typescript/src/types";
 
 const ExpensesForm = ({ className, isEdit, data }: any) => {
-  const navigation = useNavigation();
+  const navigation = useNavigation<NativeStackNavigationProp<any>>();
   const { addExpense, deleteExpense, updateExpense } =
     useContext(ExpensesContext);
   const [inputValues, setInputValue] = useState<TSingleExpenses>(
@@ -155,7 +156,7 @@ const styles = StyleSheet.create({
     color: colorPalette.white,
   },
   dropDown: {
-    backgroundColor: colorPalette.primary700,
+    backgroundColor: colorPalette.primary500,
     padding: 8,
     marginTop: 25,
     borderRadius: 8,

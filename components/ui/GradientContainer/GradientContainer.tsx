@@ -6,8 +6,8 @@ import { TGradientContainerProps } from "../../../types";
 
 const GradientContainer = ({
   children,
-  firstColorGradient = colorPalette.primary500,
-  secondColorGradient = colorPalette.primary700,
+  firstColorGradient = colorPalette.primary300,
+  secondColorGradient = colorPalette.primary900,
 }: PropsWithChildren<TGradientContainerProps>) => {
   return (
     <LinearGradient

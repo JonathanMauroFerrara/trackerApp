@@ -4,15 +4,14 @@ import { Pressable, StyleSheet, Text, View } from "react-native";
 import { colorPalette } from "../../constants/colors";
 import { TSingleExpenses } from "../../types";
 import { formatDate } from "../../utils/dateFormatter";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack/lib/typescript/src/types";
 
 const ExpenseItem = (props: TSingleExpenses) => {
-  const navigation = useNavigation();
+  const navigation = useNavigation<NativeStackNavigationProp<any>>();
   const { name, amount, date } = props;
   return (
     <Pressable
-      onPress={() =>
-        navigation.navigate("ManageExpenses" as never, { ...props })
-      }
+      onPress={() => navigation.navigate("ManageExpenses", { ...props })}
     >
       <View style={styles.container}>
         <View>

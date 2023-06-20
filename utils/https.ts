@@ -27,5 +27,9 @@ async function getExpenses(){
     return expenses.reverse();
 }
 
+async function deleteExpense(id: string){
+    const res = await axios.delete(`${process.env.REACT_APP_BASE_URL}/${id}`)
+}
+
 
 export { getExpenses, storeExpense };

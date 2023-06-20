@@ -7,10 +7,11 @@ import { colorPalette } from "../constants/colors";
 import AddExpenses from "../screens/AddExpenses";
 import AllExpenses from "../screens/AllExpenses";
 import RecenteExpenses from "../screens/RecenteExpenses";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 const BottomTabs = createBottomTabNavigator();
 function TabNavigator() {
-  const navigation = useNavigation();
+  const navigation = useNavigation<NativeStackNavigationProp<any>>();
   return (
     <BottomTabs.Navigator
       screenOptions={({ route }) => ({
@@ -45,7 +46,7 @@ function TabNavigator() {
               <IconButton
                 iconName="add"
                 size={50}
-                onPress={() => navigation.navigate("ManageExpenses" as never)}
+                onPress={() => navigation.navigate("ManageExpenses")}
                 color={colorPalette.white}
                 className={styles.closeButtonContainer}
               />
