@@ -28,8 +28,20 @@ async function getExpenses(){
 }
 
 async function deleteExpense(id: string){
-    const res = await axios.delete(`${process.env.REACT_APP_BASE_URL}/${id}`)
+    try{
+        const res = await axios.delete(`${process.env.REACT_APP_BASE_URL}/expenses/${id}.json`)
+    }catch(e){
+        console.log("delete error", e)
+    }
+}
+
+async function updateExpense(data: TSingleExpenses){
+    try{
+        const res = await axios.put(`${process.env.REACT_APP_BASE_URL}/expenses/${data.id}.json`, {...data})
+    }catch(e){
+        console.log("edit error", e)
+    }
 }
 
 
-export { getExpenses, storeExpense };
+export { getExpenses, storeExpense, deleteExpense, updateExpense };

@@ -6,7 +6,7 @@ import {
   useState,
 } from "react";
 import { TSingleExpenses } from "../types";
-import { getExpenses, storeExpense } from "../utils/https";
+import { getExpenses } from "../utils/https";
 
 export const ExpensesContext = createContext({
   expenses: [] as TSingleExpenses[],
@@ -37,7 +37,6 @@ function expensesReducer(state: any, action: any) {
       ];
 
     case "UPDATE":
-      //salvo l'index dell'elemento da modificare
       const updatableExpensesIndex = state.findIndex(
         (expense: TSingleExpenses) => expense.id === action.payload.id
       );
@@ -74,6 +73,7 @@ function ExpensesContextProvider({ children }: PropsWithChildren) {
 
   function addExpense(expensesData: TSingleExpenses) {
     dispatch({ type: "ADD", payload: expensesData });
+    fetchExpenses();
     fetchExpenses();
   }
 

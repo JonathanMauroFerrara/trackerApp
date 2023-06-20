@@ -9,6 +9,10 @@ import Input from "./Input";
 import Select from "./Select";
 import { storeExpense } from "../../utils/https";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack/lib/typescript/src/types";
+import {
+  deleteExpense as removeExpense,
+  updateExpense as editExpense,
+} from "../../utils/https";
 
 const ExpensesForm = ({ className, isEdit, data }: any) => {
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
@@ -25,22 +29,19 @@ const ExpensesForm = ({ className, isEdit, data }: any) => {
     }
   );
 
-  console.log("values", inputValues);
-
   const handleOnChange = (field: string, value: string | number) => {
     setInputValue({ ...inputValues, [field]: value });
   };
 
-  const handleDelete = useCallback(
-    (id: string) => {
-      deleteExpense(inputValues.id);
-      goBackHistory();
-    },
-    [inputValues]
-  );
+  const handleDelete = useCallback(async () => {
+    deleteExpense(inputValues.id);
+    await removeExpense(inputValues.id);
+    goBackHistory();
+  }, [inputValues]);
 
-  const handleEdit = useCallback(() => {
+  const handleEdit = useCallback(async () => {
     updateExpense({ ...inputValues });
+    await editExpense(inputValues);
     goBackHistory();
   }, [inputValues]);
 
@@ -111,7 +112,7 @@ const ExpensesForm = ({ className, isEdit, data }: any) => {
         <IconButton
           size={25}
           onPress={() => {
-            isEdit ? handleDelete(inputValues?.id) : goBackHistory();
+            isEdit ? handleDelete() : goBackHistory();
           }}
           btnText={isEdit ? "Delete" : "Cancel"}
           textColor={colorPalette.white}
